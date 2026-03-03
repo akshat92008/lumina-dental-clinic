@@ -36,7 +36,8 @@ export default function AdminDashboard() {
     const fetchLeads = async () => {
         setIsLoading(true);
         try {
-            const response = await fetch("/api/admin/leads");
+            const baseUrl = import.meta.env.VITE_API_URL || "";
+            const response = await fetch(`${baseUrl}/api/admin/leads`);
             if (!response.ok) throw new Error("Failed to fetch");
             const data = await response.json();
             setAppointments(data.appointments || []);

@@ -1,44 +1,38 @@
-# Deployment Guide - 100% Free & Permanent
+# Final Launch Guide - 100% Free & Permanent
 
-This guide setup uses **Supabase** for the database, **Netlify** for the frontend, and **Render** for the backend—all on their **Forever Free** tiers.
+I have already started the process for you! I created your **Supabase Project** and **GitHub Repository**. Follow these exact steps to finish the launch.
 
-## Step 1: Database (Supabase)
-1. Go to [Supabase.com](https://supabase.com) and create a free project.
-2. Go to the **SQL Editor** in the sidebar.
-3. Click "New Query" and paste the contents of `supabase_schema.sql` from your project folder. Run it.
-4. Go to **Project Settings > API**.
-5. Copy the **Project URL** and the **anon public API Key**.
+## 1. Setup Database Tables (Supabase)
+1.  Open your [Supabase Dashboard](https://supabase.com/dashboard/project/cmoplfdhwzfjpgahjxto).
+2.  Click on the **SQL Editor** (icon looks like `>_`) in the left sidebar.
+3.  Click **"New Query"**.
+4.  Open the [supabase_schema.sql](file:///Users/ashishsingh/Desktop/lumina-dental-clinic/supabase_schema.sql) file in this folder, copy everything.
+5.  Paste it into the Supabase SQL Editor and click **Run**.
+6.  *Important:* Go to **Project Settings > API** and copy your **Project URL** and **anon public Key**.
 
-## Step 2: Push to GitHub
-Ensure all latest changes are pushed to your repository:
-```bash
-git add .
-git commit -m "Migrate to Supabase for free permanent storage"
-git push origin main
-```
+## 2. Deploy Frontend (Netlify)
+1.  Go to [Netlify.com](https://app.netlify.com/).
+2.  Click **"Add new site" > "Import from existing project"**.
+3.  Select **GitHub** and pick the `lumina-dental-clinic` repository.
+4.  In **Site Settings > Environment Variables**, add:
+    - `SUPABASE_URL`: (Your Supabase URL)
+    - `SUPABASE_ANON_KEY`: (Your Supabase Anon Key)
+5.  Click **Deploy**. This will give you your first public link!
 
-## Step 3: Frontend (Netlify)
-1. Go to [Netlify.com](https://netlify.com) and login.
-2. Click **Add new site > Import from existing project**.
-3. Connect your GitHub repository.
-4. In **Site Settings > Environment Variables**, add:
-   - `SUPABASE_URL`: (Your Supabase URL)
-   - `SUPABASE_ANON_KEY`: (Your Supabase Anon Key)
-5. Click **Deploy**.
-
-## Step 4: Backend (Render Free Tier)
-1. Go to [Render.com](https://render.com).
-2. Click **New + > Web Service**.
-3. Connect your GitHub repository.
-4. In **Environment Variables**, add:
-   - `SUPABASE_URL`: (Your Supabase URL)
-   - `SUPABASE_ANON_KEY`: (Your Supabase Anon Key)
-5. Set **Start Command** to `node server/index.js`.
-6. Click **Deploy**.
+## 3. Deploy Backend (Render)
+*Since the frontend is on Netlify, Render will only handle the API calls for free.*
+1.  Go to [Render.com](https://dashboard.render.com/).
+2.  Click **New + > Web Service**.
+3.  Connect your GitHub repository.
+4.  In **Environment Variables**, add:
+    - `SUPABASE_URL`: (Your Supabase URL)
+    - `SUPABASE_ANON_KEY`: (Your Supabase Anon Key)
+5.  Click **Deploy**.
 
 ---
 
-## Why this is better for your client:
-- **Zero Monthly Cost**: No paid subscriptions needed for the client.
-- **Permanent Data**: Appointments and leads are saved in a professional cloud database, not a local file.
-- **Scalable**: If the clinic grows, these platforms can scale with them.
+## 🏁 Verification
+Once both are live:
+1.  Visit your Netlify URL.
+2.  Submit a test appointment.
+3.  Check your [Supabase Table Editor](https://supabase.com/dashboard/project/cmoplfdhwzfjpgahjxto/editor) to see the data appear instantly!

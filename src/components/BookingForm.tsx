@@ -23,7 +23,8 @@ export default function BookingForm() {
     };
 
     try {
-      const response = await fetch("/api/appointments", {
+      const baseUrl = import.meta.env.VITE_API_URL || "";
+      const response = await fetch(`${baseUrl}/api/appointments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
