@@ -1,7 +1,7 @@
 import express from 'express';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import db, { initDB } from './db.js';
+import supabase from './db.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -14,13 +14,10 @@ app.use(express.json());
 const distPath = join(__dirname, '../dist');
 app.use(express.static(distPath));
 
-// Initialize Database
-initDB();
-
 // --- API Routes ---
 
 // 1. Submit New Appointment
-app.post('/api/appointments', (req, res) => {
+app.post('/api/appointments', async (req, res) => {
     try {
         const { name, phone, email, date, service, message } = req.body;
 
@@ -29,17 +26,19 @@ app.post('/api/appointments', (req, res) => {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
-        const stmt = db.prepare(`
-      INSERT INTO appointments (name, phone, email, date, service, message)
-      VALUES (?, ?, ?, ?, ?, ?)
-    `);
+        const { data, error } = await supabase
+            .from('appointments')
+            .insert([
+                { name, phone, email, date, service, message: message || '' }
+            ])
+            .select();
 
-        const info = stmt.run(name, phone, email, date, service, message || '');
+        if (error) throw error;
 
         res.status(201).json({
             success: true,
             message: 'Appointment request received successfully',
-            id: info.lastInsertRowid
+            data: data[0]
         });
     } catch (error) {
         console.error('Error saving appointment:', error);
@@ -48,7 +47,7 @@ app.post('/api/appointments', (req, res) => {
 });
 
 // 2. Submit New Contact Message
-app.post('/api/contacts', (req, res) => {
+app.post('/api/contacts', async (req, res) => {
     try {
         const { name, email, phone, message } = req.body;
 
@@ -57,17 +56,19 @@ app.post('/api/contacts', (req, res) => {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
-        const stmt = db.prepare(`
-      INSERT INTO contacts (name, email, phone, message)
-      VALUES (?, ?, ?, ?)
-    `);
+        const { data, error } = await supabase
+            .from('contacts')
+            .insert([
+                { name, email, phone: phone || '', message }
+            ])
+            .select();
 
-        const info = stmt.run(name, email, phone || '', message);
+        if (error) throw error;
 
         res.status(201).json({
             success: true,
             message: 'Contact message received successfully',
-            id: info.lastInsertRowid
+            data: data[0]
         });
     } catch (error) {
         console.error('Error saving contact message:', error);
@@ -76,12 +77,21 @@ app.post('/api/contacts', (req, res) => {
 });
 
 // 3. Get All Leads for Admin Dashboard
-app.get('/api/admin/leads', (req, res) => {
+app.get('/api/admin/leads', async (req, res) => {
     try {
         // In a real app, this route would be protected by authentication!
 
-        const appointments = db.prepare('SELECT * FROM appointments ORDER BY created_at DESC').all();
-        const contacts = db.prepare('SELECT * FROM contacts ORDER BY created_at DESC').all();
+        const { data: appointments, error: apptError } = await supabase
+            .from('appointments')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        const { data: contacts, error: contactError } = await supabase
+            .from('contacts')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        if (apptError || contactError) throw (apptError || contactError);
 
         res.json({
             appointments,
