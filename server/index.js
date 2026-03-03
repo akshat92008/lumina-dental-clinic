@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import supabase from './db.js';
@@ -7,7 +8,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Middleware to parse JSON bodies
+// Middleware
+app.use(cors()); // Enable CORS for all origins
 app.use(express.json());
 
 // Serve static files from the Vite build directory

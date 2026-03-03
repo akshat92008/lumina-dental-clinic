@@ -23,7 +23,7 @@ export default function BookingForm() {
     };
 
     try {
-      const baseUrl = import.meta.env.VITE_API_URL || "";
+      const baseUrl = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
       const response = await fetch(`${baseUrl}/api/appointments`, {
         method: "POST",
         headers: {

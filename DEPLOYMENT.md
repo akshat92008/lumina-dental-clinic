@@ -36,3 +36,23 @@ Once both are live:
 1.  Visit your Netlify URL.
 2.  Submit a test appointment.
 3.  Check your [Supabase Table Editor](https://supabase.com/dashboard/project/cmoplfdhwzfjpgahjxto/editor) to see the data appear instantly!
+
+---
+
+### 🔑 Your Project Credentials
+Copy-paste these into Netlify and Render environment variables:
+
+**Supabase URL:**
+```
+https://ibfpyyunxwomlljhvbcv.supabase.co
+```
+
+**Supabase Anon Key:**
+```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImliZnB5eXVueHdvbWxsamh2YmN2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1NDQxNDQsImV4cCI6MjA4ODEyMDE0NH0.eWhlrDCBhonO6nu5D_6o99qtSAn4sxJl83My5hV7fts
+```
+
+**VITE_API_URL (For Netlify Only):**
+```
+https://lumina-dental-clinic-1.onrender.com
+```

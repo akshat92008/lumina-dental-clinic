@@ -33,7 +33,7 @@ export default function FloatingWidgets() {
         setIsLoading(true);
 
         try {
-            const baseUrl = import.meta.env.VITE_API_URL || "";
+            const baseUrl = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
             const res = await fetch(`${baseUrl}/api/chat`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
