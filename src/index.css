@@ -1,0 +1,87 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+
+  /* Premium Dental Brand Colors */
+  --color-brand-navy: #0E1A2B;
+  --color-brand-teal: #2FD3C6;
+  --color-brand-aqua: #5BE3D8;
+  --color-brand-light: #F7FAFC;
+
+  /* Text Colors */
+  --color-text-dark: #1F2937;
+  --color-text-muted: #6B7280;
+
+  /* Semantic Mappings */
+  --color-primary: var(--color-brand-navy);
+  --color-accent: var(--color-brand-teal);
+  --color-background: var(--color-brand-light);
+
+  /* Custom Shadows */
+  --shadow-brand-teal: 0 8px 30px rgba(47, 211, 198, 0.25);
+  --shadow-brand-teal-hover: 0 8px 30px rgba(47, 211, 198, 0.35);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply font-sans text-text-dark bg-brand-light antialiased selection:bg-brand-teal/20 selection:text-brand-navy;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-display text-brand-navy tracking-tight;
+}
+
+/* Luxury UI Utilities */
+.glass-nav {
+  @apply bg-brand-light/80 backdrop-blur-xl border-b border-white/40 shadow-sm transition-all duration-300;
+}
+
+.section-padding {
+  @apply py-24 md:py-32 lg:py-40;
+  /* Increased whitespace for luxury feel */
+}
+
+.container-custom {
+  @apply max-w-7xl mx-auto px-6 md:px-8;
+}
+
+/* Premium Buttons */
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 bg-brand-teal text-brand-navy px-8 py-4 rounded-2xl text-[15px] font-semibold tracking-wide shadow-brand-teal hover:bg-brand-aqua hover:shadow-brand-teal-hover hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98];
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 bg-transparent text-brand-teal border-2 border-brand-teal px-8 py-4 rounded-2xl text-[15px] font-semibold tracking-wide shadow-sm hover:bg-brand-aqua/10 hover:text-brand-navy hover:border-brand-aqua transition-all duration-300 active:scale-[0.98];
+}
+
+/* Typography Refinements */
+.heading-luxury {
+  @apply text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.15] tracking-tight;
+}
+
+.subheading-luxury {
+  @apply tracking-widest text-[11px] md:text-xs font-bold uppercase text-text-muted mb-4 inline-block;
+}
+
+/* Hide scrollbar for gallery slider */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
